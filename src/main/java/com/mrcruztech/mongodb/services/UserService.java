@@ -26,12 +26,23 @@ public class UserService {
     }
 
     public User insert(User user){
-        return userRepo.save(user);
+        return userRepo.insert(user);
     }
 
     public void delete(String id){
         findById(id);
         userRepo.deleteById(id);
+    }
+
+    public User update(User user){
+        User newUser = findById(user.getId());
+        updateData(newUser, user);
+        return userRepo.save(newUser);
+    }
+
+    private void updateData(User newUser, User user) {
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
     }
 
     public User fromDTO(UserDTO userDto){
