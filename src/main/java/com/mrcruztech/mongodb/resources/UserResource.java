@@ -1,5 +1,6 @@
 package com.mrcruztech.mongodb.resources;
 
+import com.mrcruztech.mongodb.domain.Post;
 import com.mrcruztech.mongodb.domain.User;
 import com.mrcruztech.mongodb.dto.UserDTO;
 import com.mrcruztech.mongodb.services.UserService;
@@ -51,13 +52,16 @@ public class UserResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
-
         User user = userService.fromDTO(userDTO);
         user.setId(id);
-
         user = userService.update(user);
-
         return ResponseEntity.noContent().build();
 
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPostsByUser(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
