@@ -2,7 +2,11 @@ package com.mrcruztech.mongodb.dto;
 
 import com.mrcruztech.mongodb.domain.User;
 
-public class AuthorDTO {
+import java.io.Serializable;
+
+public class AuthorDTO implements Serializable {
+    private static final long serialLVersionUID = 1L;
+
     private String id;
     private String name;
 
